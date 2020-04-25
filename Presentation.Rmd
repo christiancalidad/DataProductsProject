@@ -1,0 +1,67 @@
+---
+title: "Data Products Final Project"
+author: "Christian Suarez"
+date: "24/4/2020"
+output: ioslides_presentation
+---
+
+
+```{r setup, include=TRUE, echo=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Application
+
+This application has been developed to allow analyze behavor of automovilistic accidents in Medellin Colombia and It contains information from from 2014 to 2017.
+
+The application has been built using shiny in the following URL:
+https://christian-suarez-gil.shinyapps.io/DataProductsProject/
+
+
+## Source code
+
+The source code can be found here:
+https://github.com/christiancalidad/DataProductsProject
+
+
+```{r, echo=FALSE,message=FALSE,error=FALSE}
+
+```
+
+## Guide
+
+Trough this application you can analyze behavor of automovilistic accidents in Medellín City - Colombia,
+
+To use it, please follow the next steps:
+
+- Select the date range from January 2014 to December 2017.
+
+- Select the time scale you want to visualice
+
+- Click on Refresh Button
+
+
+```{r, echo=FALSE,message=FALSE,error=FALSE}
+
+```
+
+
+## Running
+
+When you select weekly or monthly scale, the application summarize the daily data trough the following expression:
+```{r, include=FALSE,message=FALSE,error=FALSE}
+setwd("C:/Users/CHRISTIAN/Desktop/Coursera/Specialization/2/DataProducts/FinalProject/Presentation")
+DatosDia <- read.delim("Base_Diaria.csv", header=TRUE, sep=",", encoding = "UTF-8")
+DatosDia$Fecha<-as.Date(DatosDia$Fecha,"%Y-%m-%d")
+SerieDia <- aggregate(Accidentes~Fecha*CLASE,data=DatosDia,FUN=sum)
+Base <- SerieDia
+```
+
+```{r, echo=TRUE,message=FALSE,error=FALSE,eval=TRUE}
+SerieGraph <- aggregate(Accidentes~Fecha*CLASE,data=Base,FUN=sum)
+SerieGraph$Fecha <-format(SerieGraph$Fecha,"%G-%V")
+SerieGraph <- aggregate(Accidentes~Fecha*CLASE,data=SerieGraph,FUN=sum)
+head(SerieGraph)
+```
+
